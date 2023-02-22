@@ -8,7 +8,9 @@ interface Props {
 }
 
 interface Results {
-  name: string | any;
+  name: {
+    common: string;
+  };
   population: number;
   area: number;
   region: string;
@@ -16,6 +18,7 @@ interface Results {
     svg: string;
     alt: string;
   };
+  subregion: string;
   capital: string[];
   languages: string[];
 }
@@ -28,22 +31,25 @@ const Details = ({ data, slug }: Props) => {
       </Head>
 
       <Link href="/">
-        <h1 className="text-center mb-10 text-3xl">Home</h1>
+        <button className="bg-[#243a2f] rounded-md mb-10 text-xl px-4 py-1 ml-10">
+          Back
+        </button>
       </Link>
 
       <div>
         {data &&
           data.map((res, id) => (
-            <div className="font-mono flex flex-col items-center" key={id}>
+            <div className="font-mono flex flex-col items-center my-6" key={id}>
               <Image
                 src={res.flags.svg}
                 alt={res.flags.alt ? res.flags.alt : "flags"}
                 width={200}
                 height={200}
               />
-              <p className="pt-5 font-bold">{res.name.common}</p>
+              <p className="pt-5 font-bold">{res.name.common.toUpperCase()}</p>
               <p>Capital: {res.capital[0]}</p>
               <p>Region: {res.region}</p>
+              <p>Subregion: {res.subregion}</p>
               {Object.values(res.languages).map((value, id) => (
                 <p key={id}>Language: {value}</p>
               ))}

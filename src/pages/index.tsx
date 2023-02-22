@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useState } from "react";
 
 interface Props {
   data: Results[];
@@ -11,10 +12,11 @@ interface Results {
   };
   population: number;
   area: number;
-  flags: string;
 }
 
 export default function Home({ data }: Props) {
+  const [text, setText] = useState("");
+
   return (
     <>
       <Head>
@@ -23,12 +25,14 @@ export default function Home({ data }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <section className="px-5 md:px-7">
+        <p className="mb-6 font-semibold">Found {data.length} Countries</p>
         <form>
           <input
             className="pl-2 h-12 w-full md:w-2/4 rounded-md outline-none text-black"
             type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             placeholder="Filter by Name"
           />
         </form>
@@ -39,8 +43,17 @@ export default function Home({ data }: Props) {
             <p>Population</p>
             <p className="hidden md:block">Area</p>
           </div>
-          {data &&
-            data.map((res, id) => (
+          {data
+            .filter((res) => {
+              if (text === "") {
+                return res;
+              } else if (
+                res.name.common.toLowerCase().includes(text.toLowerCase())
+              ) {
+                return res;
+              }
+            })
+            .map((res, id) => (
               <Link
                 href={"/country/" + res.name.common}
                 className="grid grid-cols-2 md:grid-cols-3 content-center mb-4 rounded-md px-2 py-4 bg-[#243a2f]"
