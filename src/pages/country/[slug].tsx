@@ -47,7 +47,7 @@ const Details = ({ data, slug }: Props) => {
                 height={200}
               />
               <p className="pt-5 font-bold">{res.name.common.toUpperCase()}</p>
-              <p>Capital: {res.capital[0]}</p>
+              <p>Capital: {res.capital}</p>
               <p>Region: {res.region}</p>
               <p>Subregion: {res.subregion}</p>
               {Object.values(res.languages).map((value, id) => (
