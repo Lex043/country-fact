@@ -50,9 +50,10 @@ const Details = ({ data, slug }: Props) => {
               <p>Capital: {res.capital}</p>
               <p>Region: {res.region}</p>
               <p>Subregion: {res.subregion}</p>
-              {Object.values(res.languages).map((value, id) => (
-                <p key={id}>Language: {value}</p>
-              ))}
+              {res.languages &&
+                Object.values(res.languages).map((value, id) => (
+                  <p key={id}>Language: {value}</p>
+                ))}
             </div>
           ))}
       </div>

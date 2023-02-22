@@ -43,29 +43,30 @@ export default function Home({ data }: Props) {
             <p>Population</p>
             <p className="hidden md:block">Area</p>
           </div>
-          {data
-            .filter((res) => {
-              if (text === "") {
-                return res;
-              } else if (
-                res.name.common.toLowerCase().includes(text.toLowerCase())
-              ) {
-                return res;
-              }
-            })
-            .map((res, id) => (
-              <Link
-                href={"/country/" + res.name.common}
-                className="grid grid-cols-2 md:grid-cols-3 content-center mb-4 rounded-md px-2 py-4 bg-[#243a2f]"
-                key={id}
-              >
-                <p>{res.name.common}</p>
-                <p className="justify-self-end md:justify-self-center">
-                  {res.population}
-                </p>
-                <p className="hidden justify-self-end md:block">{res.area}</p>
-              </Link>
-            ))}
+          {data &&
+            data
+              .filter((res) => {
+                if (text === "") {
+                  return res;
+                } else if (
+                  res.name.common.toLowerCase().includes(text.toLowerCase())
+                ) {
+                  return res;
+                }
+              })
+              .map((res, id) => (
+                <Link
+                  href={"/country/" + res.name.common}
+                  className="grid grid-cols-2 md:grid-cols-3 content-center mb-4 rounded-md px-2 py-4 bg-[#243a2f]"
+                  key={id}
+                >
+                  <p>{res.name.common}</p>
+                  <p className="justify-self-end md:justify-self-center">
+                    {res.population}
+                  </p>
+                  <p className="hidden justify-self-end md:block">{res.area}</p>
+                </Link>
+              ))}
         </div>
       </section>
     </>
